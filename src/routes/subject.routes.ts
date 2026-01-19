@@ -1,12 +1,12 @@
 import express from "express";
-import { createSubject, getSubjects } from "../controllers/subject.controller.js";
-import { subjectRules } from "../validations/subject.validation.js";
+import { createSubject, editSubject, getSubjects } from "../controllers/subject.controller.js";
+import { editSubjectRules, subjectRules } from "../validations/subject.validation.js";
 import { validate } from "../middlewares/validate.js";
 
 const router = express.Router();
 
 router.post("/", subjectRules, validate, createSubject);
 router.get("/", getSubjects);
-router.put("/:id", subjectRules, validate, createSubject);
+router.put("/:id", editSubjectRules, validate, editSubject);
 
 export default router;
