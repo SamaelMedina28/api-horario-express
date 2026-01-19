@@ -20,7 +20,7 @@ export const login = async (req: Request, res: Response) => {
   if (!isPasswordValid) {
     return res.status(401).json({ message: "Credenciales invalidas" });
   }
-  const token  = jwt.sign({ id: user._id}, process.env.JWT_SECRET || "secret", { expiresIn: "1h" });
+  const token  = jwt.sign({ id: user._id, isNew: user.isNew}, process.env.JWT_SECRET || "secret", { expiresIn: "1h" });
   res.cookie("token", token,{
     httpOnly: true,
     secure: true,
