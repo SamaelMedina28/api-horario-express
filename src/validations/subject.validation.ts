@@ -17,3 +17,10 @@ export const subjectRules = [
     .notEmpty()
     .withMessage("El nombre de la materia es requerido"),
 ];
+
+
+export const editSubjectRules = [
+  body("name")
+    .notEmpty()
+    .withMessage("El nombre de la materia es requerido"),
+]
