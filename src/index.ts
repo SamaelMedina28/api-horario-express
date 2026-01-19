@@ -1,6 +1,7 @@
 import express from "express";
 import { config } from "dotenv";
 import authRoutes from "./routes/auth.routes.js";
+import subjectRoutes from "./routes/subject.routes.js";
 import { conectDB } from "./config/db.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
@@ -16,6 +17,7 @@ app.use(cors({
 }));
 
 app.use("/", authRoutes);
+app.use("/subjects", subjectRoutes);
 
 app.listen(process.env.PORT || 5173, () => {
     console.log(`Server running on port ${process.env.PORT}`);
