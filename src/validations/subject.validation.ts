@@ -13,10 +13,7 @@ export const subjectRules = [
       return true;
     })
     .withMessage("Debe enviar al menos una materia"),
-  body("subjects.*.name")
+  body("subjects.*")
     .notEmpty()
     .withMessage("El nombre de la materia es requerido"),
-  body("subjects.*.name")
-    .isLength({ min: 3 })
-    .withMessage("El nombre de la materia debe tener al menos 3 caracteres"),
 ];
