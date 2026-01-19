@@ -16,3 +16,14 @@ export const createSubject = async (req: Request, res: Response) => {
         res.status(500).json({ message: "Error al crear la materia" });
     }
 };
+
+export const getSubjects = async (req: Request, res: Response) => {
+    try {
+        const subjects = await Subject.find({ user: req.user?.id }).sort({
+            name: 1,
+        });
+        res.status(200).json(subjects);
+    } catch (error) {
+        res.status(500).json({ message: "Error al obtener las materias" });
+    }
+};
