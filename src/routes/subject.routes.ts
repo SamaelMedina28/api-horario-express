@@ -7,5 +7,6 @@ const router = express.Router();
 
 router.post("/", subjectRules, validate, createSubject);
 router.get("/", getSubjects);
+router.put("/:id", subjectRules, validate, createSubject);
 
 export default router;
