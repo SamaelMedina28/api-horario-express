@@ -41,6 +41,5 @@ export const createClassRules = [
     .notEmpty()
     .withMessage("El tipo de clase es requerido"),
   body("classes.*.classroom").notEmpty().withMessage("El aula es requerida"),
-  body("classes.*.building").notEmpty().withMessage("El edificio es requerido"),
-  body("classes.*.user").notEmpty().withMessage("El usuario es requerido"),
+  body("classes.*.building").notEmpty().withMessage("El edificio es requerido")
 ];
