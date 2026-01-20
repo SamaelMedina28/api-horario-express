@@ -36,3 +36,20 @@ export const getClasses =  async (req: Request, res: Response) => {
     return res.status(500).json({ message: "Error al obtener las clases", error });
   }
 }
+
+export const getClassById = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const userId = req.user?.id;
+    const classById = await Class.findById(id);
+    if (!classById) {
+      return res.status(404).json({ message: "Clase no encontrada" });
+    }
+    if (classById.user.toString() !== userId) {
+      return res.status(403).json({ message: "No tienes permiso para acceder a esta clase" });
+    }
+    return res.status(200).json(classById);
+  } catch (error) {
+    return res.status(500).json({ message: "Error al obtener la clase", error });
+  }
+}
