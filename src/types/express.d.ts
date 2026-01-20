@@ -14,5 +14,14 @@ declare global {
     }
   }
 }
-
-export {};
+export interface Class {
+  day: string;
+  subject: string;
+  startTime: string;
+  endTime: string;
+  teacher: string;
+  classType: string;
+  classroom: string;
+  building: string;
+  user: User;
+}
