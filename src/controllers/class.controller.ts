@@ -53,3 +53,21 @@ export const getClassById = async (req: Request, res: Response) => {
     return res.status(500).json({ message: "Error al obtener la clase", error });
   }
 }
+
+export const deleteClass = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const userId = req.user?.id;
+    const classToDelete = await Class.findById(id);
+    if (!classToDelete) {
+      return res.status(404).json({ message: "Clase no encontrada" });
+    }
+    if (classToDelete.user.toString() !== userId) {
+      return res.status(403).json({ message: "No tienes permiso para eliminar esta clase" });
+    }
+    await Class.findByIdAndDelete(id);
+    return res.status(200).json({ message: "Clase eliminada exitosamente" });
+  } catch (error) {
+    return res.status(500).json({ message: "Error al eliminar la clase", error });
+  }
+}
