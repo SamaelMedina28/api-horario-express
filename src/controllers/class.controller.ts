@@ -1,6 +1,7 @@
 import { response, type Request, type Response } from "express";
 import type { Class as TypeClass } from "../types/express.js";
 import Class from "../models/Class.js";
+import type { ParsedPath } from "node:path";
 
 export const createClass = (req: Request, res: Response) => {
   // Nos vendran estos datos (day, subject, startTime, endTime, teacher, classType, classroom, building) pero en una variable que sera array de objetos
@@ -27,10 +28,28 @@ export const createClass = (req: Request, res: Response) => {
   }
 };
 
-export const getClasses =  async (req: Request, res: Response) => {
+export const getClasses = async (req: Request, res: Response) => {
   try {
+    const rawDay = req.query.day;
     const userId = req.user?.id;
-    const classes = await Class.find({ user: userId });
+
+    const day =
+      typeof rawDay === "string"
+        ? rawDay.charAt(0).toUpperCase() + rawDay.slice(1).toLowerCase()
+        : undefined;
+
+
+    if (!userId) {
+      return res.status(401).json({ message: "No autorizado" });
+    }
+
+    const query = {
+      user: userId,
+      ...(day ? { day } : {}),
+    };
+
+    const classes = await Class.find(query);
+
     return res.status(200).json(classes);
   } catch (error) {
     return res.status(500).json({ message: "Error al obtener las clases", error });
